@@ -1,0 +1,2 @@
+Cliente:1;Magagnin;45998488661;08268845989;Pedro Carlos Neppel;582;Maria Luiza;Casa
+Caixa:0.0
