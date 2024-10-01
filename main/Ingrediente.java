@@ -1,3 +1,4 @@
+package main;
 public class Ingrediente {
     private static int contadorId = 1;
     private int id;

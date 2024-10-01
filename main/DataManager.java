@@ -1,3 +1,4 @@
+package main;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -153,7 +154,7 @@ public class DataManager {
     }
 
     // Métodos para buscar objetos
-    private Cliente getClienteById(int id) {
+    Cliente getClienteById(int id) {
         for (Cliente cliente : clientes) {
             if (cliente.getId() == id) {
                 return cliente;
@@ -162,7 +163,7 @@ public class DataManager {
         return null;
     }
 
-    private Ingrediente getIngredienteById(int id) {
+    Ingrediente getIngredienteById(int id) {
         for (Ingrediente ingrediente : ingredientes) {
             if (ingrediente.getId() == id) {
                 return ingrediente;
@@ -171,7 +172,7 @@ public class DataManager {
         return null;
     }
 
-    private Lanche getLancheById(int id) {
+    Lanche getLancheById(int id) {
         for (Lanche lanche : lanches) {
             if (lanche.getId() == id) {
                 return lanche;
@@ -186,4 +187,6 @@ public class DataManager {
     public List<Lanche> getLanches() { return lanches; }
     public List<Pedido> getPedidos() { return pedidos; }
     public Caixa getCaixa() { return caixa; }
+    public List<Ingrediente> getEstoque() { return ingredientes; }
+    
 }

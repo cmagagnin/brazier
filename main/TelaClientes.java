@@ -1,3 +1,4 @@
+package main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,63 +8,97 @@ import java.awt.event.ActionListener;
 public class TelaClientes extends JFrame {
     private DataManager dataManager;
     private JTextArea clienteTextArea;
-    
+
     public TelaClientes(DataManager dataManager) {
         this.dataManager = dataManager;
         setTitle("Gerenciar Clientes");
-        setSize(600, 400);
+        setSize(800, 600); // largura, altura
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
     }
 
     private void initComponents() {
-        // Criação de campos e botões
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
-        clienteTextArea = new JTextArea();
-        clienteTextArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(clienteTextArea);
-
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(6, 2));
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);  // Espaçamento entre componentes
 
         JLabel nomeLabel = new JLabel("Nome:");
-        JTextField nomeField = new JTextField();
+        JTextField nomeField = new JTextField(15);
         JLabel telefoneLabel = new JLabel("Telefone:");
-        JTextField telefoneField = new JTextField();
+        JTextField telefoneField = new JTextField(15);
         JLabel cpfLabel = new JLabel("CPF:");
-        JTextField cpfField = new JTextField();
+        JTextField cpfField = new JTextField(15);
         JLabel ruaLabel = new JLabel("Rua:");
-        JTextField ruaField = new JTextField();
+        JTextField ruaField = new JTextField(15);
         JLabel numeroLabel = new JLabel("Número:");
-        JTextField numeroField = new JTextField();
+        JTextField numeroField = new JTextField(5);
         JLabel bairroLabel = new JLabel("Bairro:");
-        JTextField bairroField = new JTextField();
+        JTextField bairroField = new JTextField(15);
         JLabel complementoLabel = new JLabel("Complemento:");
-        JTextField complementoField = new JTextField();
+        JTextField complementoField = new JTextField(15);
 
-        inputPanel.add(nomeLabel);
-        inputPanel.add(nomeField);
-        inputPanel.add(telefoneLabel);
-        inputPanel.add(telefoneField);
-        inputPanel.add(cpfLabel);
-        inputPanel.add(cpfField);
-        inputPanel.add(ruaLabel);
-        inputPanel.add(ruaField);
-        inputPanel.add(numeroLabel);
-        inputPanel.add(numeroField);
-        inputPanel.add(bairroLabel);
-        inputPanel.add(bairroField);
-        inputPanel.add(complementoLabel);
-        inputPanel.add(complementoField);
+        // Posicionando os campos na grid
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(nomeLabel, gbc);
 
+        gbc.gridx = 1;
+        add(nomeField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(telefoneLabel, gbc);
+
+        gbc.gridx = 1;
+        add(telefoneField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        add(cpfLabel, gbc);
+
+        gbc.gridx = 1;
+        add(cpfField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        add(ruaLabel, gbc);
+
+        gbc.gridx = 1;
+        add(ruaField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        add(numeroLabel, gbc);
+
+        gbc.gridx = 1;
+        add(numeroField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        add(bairroLabel, gbc);
+
+        gbc.gridx = 1;
+        add(bairroField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        add(complementoLabel, gbc);
+
+        gbc.gridx = 1;
+        add(complementoField, gbc);
+
+        // Botão de cadastro
         JButton cadastrarButton = new JButton("Cadastrar Cliente");
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.gridwidth = 2;
+        add(cadastrarButton, gbc);
+
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // Capturando dados do formulário
                     String nome = nomeField.getText();
                     String telefone = telefoneField.getText();
                     String cpf = cpfField.getText();
@@ -72,15 +107,10 @@ public class TelaClientes extends JFrame {
                     String bairro = bairroField.getText();
                     String complemento = complementoField.getText();
 
-                    // Criando novo cliente
                     Cliente novoCliente = new Cliente(nome, telefone, cpf, rua, numero, bairro, complemento);
                     dataManager.getClientes().add(novoCliente);
                     dataManager.salvarDados();
 
-                    // Atualizando a lista de clientes
-                    atualizarListaClientes();
-                    
-                    // Limpando os campos do formulário
                     nomeField.setText("");
                     telefoneField.setText("");
                     cpfField.setText("");
@@ -97,24 +127,30 @@ public class TelaClientes extends JFrame {
             }
         });
 
-        // Botão para visualizar todos os clientes cadastrados
+        // Campo para visualizar clientes
+        clienteTextArea = new JTextArea(5, 38);
+        clienteTextArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(clienteTextArea);
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.gridwidth = 2;
+        add(scrollPane, gbc);
+
+        // Botão de visualização
         JButton visualizarButton = new JButton("Visualizar Clientes");
+        gbc.gridx = 0;
+        gbc.gridy = 9;
+        gbc.gridwidth = 2;
+        add(visualizarButton, gbc);
+
         visualizarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 atualizarListaClientes();
             }
         });
-
-        panel.add(scrollPane, BorderLayout.CENTER);
-        panel.add(inputPanel, BorderLayout.NORTH);
-        panel.add(cadastrarButton, BorderLayout.SOUTH);
-        panel.add(visualizarButton, BorderLayout.EAST);
-
-        add(panel);
     }
 
-    // Método para atualizar o campo de texto com os clientes cadastrados
     private void atualizarListaClientes() {
         StringBuilder sb = new StringBuilder();
         for (Cliente cliente : dataManager.getClientes()) {

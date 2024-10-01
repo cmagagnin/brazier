@@ -1,3 +1,4 @@
+package main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ public class TelaPedidos extends JFrame {
     public TelaPedidos(DataManager dataManager) {
         this.dataManager = dataManager;
         setTitle("Gerenciar Pedidos");
-        setSize(600, 400);
+        setSize(600, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
     }

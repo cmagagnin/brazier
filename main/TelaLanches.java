@@ -1,3 +1,5 @@
+package main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,33 +14,44 @@ public class TelaLanches extends JFrame {
     public TelaLanches(DataManager dataManager) {
         this.dataManager = dataManager;
         setTitle("Gerenciar Lanches");
-        setSize(600, 400);
+        setSize(600, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
     }
 
     private void initComponents() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
-        lanchesTextArea = new JTextArea();
-        lanchesTextArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(lanchesTextArea);
-
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(2, 2));
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);  // Espaçamento entre componentes
 
         JLabel nomeLancheLabel = new JLabel("Nome do Lanche:");
-        JTextField nomeLancheField = new JTextField();
+        JTextField nomeLancheField = new JTextField(15);
         JLabel ingredientesLabel = new JLabel("ID Ingredientes (ex: 1:2, 3:1):");
-        JTextField ingredientesField = new JTextField();
+        JTextField ingredientesField = new JTextField(20);
 
-        inputPanel.add(nomeLancheLabel);
-        inputPanel.add(nomeLancheField);
-        inputPanel.add(ingredientesLabel);
-        inputPanel.add(ingredientesField);
+        // Posicionando os campos na grid
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(nomeLancheLabel, gbc);
 
+        gbc.gridx = 1;
+        add(nomeLancheField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(ingredientesLabel, gbc);
+
+        gbc.gridx = 1;
+        add(ingredientesField, gbc);
+
+        // Botão de cadastro
         JButton cadastrarButton = new JButton("Cadastrar Lanche");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        add(cadastrarButton, gbc);
+
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,8 +71,6 @@ public class TelaLanches extends JFrame {
                     dataManager.getLanches().add(novoLanche);
                     dataManager.salvarDados();
 
-                    atualizarListaLanches();
-
                     nomeLancheField.setText("");
                     ingredientesField.setText("");
 
@@ -70,20 +81,28 @@ public class TelaLanches extends JFrame {
             }
         });
 
+        // Campo para visualizar lanches
+        lanchesTextArea = new JTextArea(10, 30);
+        lanchesTextArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(lanchesTextArea);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        add(scrollPane, gbc);
+
+        // Botão de visualização
         JButton visualizarButton = new JButton("Visualizar Lanches");
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        add(visualizarButton, gbc);
+
         visualizarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 atualizarListaLanches();
             }
         });
-
-        panel.add(scrollPane, BorderLayout.CENTER);
-        panel.add(inputPanel, BorderLayout.NORTH);
-        panel.add(cadastrarButton, BorderLayout.SOUTH);
-        panel.add(visualizarButton, BorderLayout.EAST);
-
-        add(panel);
     }
 
     private void atualizarListaLanches() {

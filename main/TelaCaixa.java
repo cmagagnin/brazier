@@ -1,3 +1,4 @@
+package main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ public class TelaCaixa extends JFrame {
     public TelaCaixa(DataManager dataManager) {
         this.dataManager = dataManager;
         setTitle("Caixa");
-        setSize(600, 400);
+        setSize(800, 800);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
     }
@@ -37,7 +38,7 @@ public class TelaCaixa extends JFrame {
         });
 
         // Campo para exibir o relatório de caixa
-        caixaTextArea = new JTextArea(15, 30);
+        caixaTextArea = new JTextArea(15, 40);
         caixaTextArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(caixaTextArea);
         gbc.gridx = 0;

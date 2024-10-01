@@ -1,3 +1,4 @@
+package main;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +11,7 @@ public class TelaIngredientes extends JFrame {
     public TelaIngredientes(DataManager dataManager) {
         this.dataManager = dataManager;
         setTitle("Gerenciar Ingredientes");
-        setSize(600, 400);
+        setSize(600, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
     }

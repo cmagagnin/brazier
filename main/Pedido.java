@@ -1,5 +1,7 @@
+package main;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class Pedido {
     private static int contadorId = 1;
@@ -26,10 +28,10 @@ public class Pedido {
     }
 
     // Método para adicionar lanche ao pedido
-    public void adicionarLanche(Lanche lanche, int quantidade, Estoque estoque) {
+    public void adicionarLanche(Lanche lanche, int quantidade, List<Ingrediente> list) {
         lanches.add(new ItemPedido(lanche, quantidade));
         // Atualizar estoque
-        for (Map.Entry<Ingrediente, Integer> entry : lanche.getIngredientes().entrySet()) {
+        for (Entry<Ingrediente, Integer> entry : lanche.getIngredientes().entrySet()) {
             Ingrediente ingrediente = entry.getKey();
             int quantidadeNecessaria = entry.getValue() * quantidade;
             if (ingrediente.getQuantidade() >= quantidadeNecessaria) {
@@ -66,7 +68,7 @@ public class Pedido {
             for (ItemPedido item : lanches) {
                 Lanche lanche = item.getLanche();
                 int quantidadePedido = item.getQuantidade();
-                for (Map.Entry<Ingrediente, Integer> entry : lanche.getIngredientes().entrySet()) {
+                for (Entry<Ingrediente, Integer> entry : lanche.getIngredientes().entrySet()) {
                     Ingrediente ingrediente = entry.getKey();
                     int quantidadeDevolver = entry.getValue() * quantidadePedido;
                     ingrediente.setQuantidade(ingrediente.getQuantidade() + quantidadeDevolver);
